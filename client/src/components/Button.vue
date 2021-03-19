@@ -11,7 +11,7 @@
         },
         methods: {
             onClick() {
-                console.log('hello world');
+                this.$emit('btn-click');
             }
         }
 

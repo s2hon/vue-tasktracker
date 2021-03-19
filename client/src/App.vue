@@ -1,17 +1,56 @@
 <template>
   <div class="container">
     <Header title="Task Tracker"/>
+    <Tasks @toggle-reminder="toggleReminder" @delete-task="deleteTask" :tasks="tasks"/>
+    <AddTask @add-task="addTask" />
   </div>
 </template>
 
 <script>
 import Header from './components/Header.vue'
+import Tasks from './components/Tasks.vue'
+import AddTask from './components/Add.vue'
+
 
 export default {
   name: 'App',
   components: {
-    Header
+    Header,
+    Tasks,
+    AddTask
   },
+  data() {
+    //function that returns object
+    return {
+      tasks: []
+    }
+  },
+  methods: {
+    deleteTask(id) {
+      if(confirm('Are you sure?')) {
+        this.tasks = this.tasks.filter((task) => task.id !== id)
+      }
+    },
+    toggleReminder(id) {
+      this.tasks = this.tasks.map((task) => task.id === id ? {...task, reminder: !task.reminder} : task)
+    },
+    addTask(task) {
+      this.tasks = [...this.tasks, task]
+    }
+  },
+  created() {
+    //life cycle method-a component is loaded a function is fired off (hooks)
+    //http request, load data when component loads
+    this.tasks = [
+      {
+        id: 1,
+        text: 'Doctors appt',
+        day: 'Mar 17th @ 5PM',
+        reminder: true
+
+      }
+    ]
+  }
 }
 
 

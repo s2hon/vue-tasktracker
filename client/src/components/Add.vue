@@ -44,14 +44,14 @@ export default {
                 return
             }
 
-            let postCount = 0
-
             const newTask = {
-                id: postCount++,
+                id: Math.floor(Math.random() * 100000),
                 text: this.text,
                 day: this.day,
                 reminder: this.reminder
             }
+
+            console.log(newTask)
 
             this.$emit('add-task', newTask)
 
